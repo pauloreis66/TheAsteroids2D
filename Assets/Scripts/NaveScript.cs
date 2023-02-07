@@ -28,7 +28,26 @@ public class NaveScript : MonoBehaviour
         // Eixo X - na horizontal
         float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         transform.Translate(horizontal, 0, 0);// Aplicando as mudanças
-        
+
+        //Restringir o movimento entre dois valores (X)
+        if (transform.position.x <= -5.6f || transform.position.x >= 5.6f)
+        {
+            // Criando o limite
+            float xPos = Mathf.Clamp(transform.position.x, -5.6f, 5.6f);
+            // Limitando
+            transform.position = new Vector3(xPos, transform.position.y, transform.position.z);
+        }
+
+        //Restringir o movimento entre dois valores (Y)
+        if (transform.position.y >= -4.5f || transform.position.y <= 4.5f)
+        {
+            // Criando o limite
+            float yPos = Mathf.Clamp(transform.position.y, -4.5f, 4.5f);
+            // Limitando
+            transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
+        }
+
+
         // Quando a barra de espaços é pressionada ele atira
         if (Input.GetKeyDown("space"))
         {
